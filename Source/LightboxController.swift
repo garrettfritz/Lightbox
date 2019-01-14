@@ -439,11 +439,10 @@ extension LightboxController: HeaderViewDelegate {
       previous()
     } else {
       next()
-        if currentPage != 0 {
       currentPage -= 1
-        }
     }
 
+    self.initialImages.remove(at: prevIndex)
     self.pageViews.remove(at: prevIndex).removeFromSuperview()
 
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
