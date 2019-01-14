@@ -439,7 +439,9 @@ extension LightboxController: HeaderViewDelegate {
       previous()
     } else {
       next()
+        if currentPage != 0 {
       currentPage -= 1
+        }
     }
 
     self.pageViews.remove(at: prevIndex).removeFromSuperview()
