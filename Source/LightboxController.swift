@@ -3,6 +3,9 @@ import UIKit
 public protocol LightboxControllerPageDelegate: class {
 
   func lightboxController(_ controller: LightboxController, didMoveToPage page: Int)
+    
+  func lightboxController(_ controller: LightboxController, didDeletePage page: Int)
+    
 }
 
 public protocol LightboxControllerDismissalDelegate: class {
@@ -421,14 +424,17 @@ extension LightboxController: HeaderViewDelegate {
   func headerView(_ headerView: HeaderView, didPressDeleteButton deleteButton: UIButton) {
     deleteButton.isEnabled = false
 
+    
     guard numberOfPages != 1 else {
-      pageViews.removeAll()
+        pageDelegate?.lightboxController(self, didDeletePage: 0)
+        pageViews.removeAll()
       self.headerView(headerView, didPressCloseButton: headerView.closeButton)
       return
     }
 
     let prevIndex = currentPage
-
+    pageDelegate?.lightboxController(self, didDeletePage: prevIndex)
+    
     if currentPage == numberOfPages - 1 {
       previous()
     } else {
